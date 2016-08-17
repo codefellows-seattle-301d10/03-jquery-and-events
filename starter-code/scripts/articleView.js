@@ -1,13 +1,17 @@
-// IN-CLASS TODO: Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
+// IN-CLASS TODO: DONE Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
 
 articleView.populateFilters = function() {
   $('article').not('.template').each(function() {
     var authorName, category, optionTag;
+
     authorName = $(this).find('address a').text();
+
     optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
+
     $('#author-filter').append(optionTag);
+
     category = $(this).attr('data-category');
     optionTag = '<option value="' + category + '">' + category + '</option>';
     if ($('#category-filter option[value="' + category + '"]').length === 0) {
@@ -16,15 +20,33 @@ articleView.populateFilters = function() {
   });
 };
 
+
+
 articleView.handleAuthorFilter = function() {
+
+  var authorName, optionTag;
+  authorName = $(this).find('address a').text();
+
+  optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
+
   $('#author-filter').on('change', function() {
-  if ($(this).val()) {
+    if ($(this).val()) {
       /* TODO: If the slect box changes to an option that has a value, we should:
           1. Hide all of the articles
           2. Fade in only the articles that match based on on the author
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
+        $('article').hide(); //hides all articles
+
+        // $('article').attr('optionTag', authorName).each(function() {
+        //   fadeIn(2000);
+        // });
+        $('article').attr('optionTag', authorName).fadeIn(2000);
+        // $('data-author')
+
+        console.log('Hello');
+
   } else {
     /* Otherwise, we should:
         1. Show all the articles except the template */
@@ -32,6 +54,7 @@ articleView.handleAuthorFilter = function() {
     $('#category-filter').val('');
   });
 };
+
 
 articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
@@ -63,3 +86,8 @@ articleView.setTeasers = function() {
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
