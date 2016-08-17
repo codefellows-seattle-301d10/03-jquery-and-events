@@ -1,6 +1,5 @@
-// IN-CLASS TODO: Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
+// IN-CLASS TODO: DONE - Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
-
 
 articleView.populateFilters = function() {
   $('article').not('.template').each(function() {
@@ -18,25 +17,41 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
-  if ($(this).val()) {
-      /* TODO: If the slect box changes to an option that has a value, we should:
-          1. Hide all of the articles
-          2. Fade in only the articles that match based on on the author
-            that was aselected. Hint: use an attribute selector to find
-            those articles that match the value, and then fade them in.
-        */
-  } else {
-    /* Otherwise, we should:
-        1. Show all the articles except the template */
-  }
+    if ($(this).val()) {
+      $('#articles article').hide();
+      // $(this).find(':selected').attr('data-author').fadeIn(500);
+      $('#articles article[data-author="' + $(this).val() + '"]').fadeIn(400);
+        /* TODO: If the slect box changes to an option that has a value, we should:
+            1. Hide all of the articles
+            2. Fade in only the articles that match based on on the author
+              that was aselected. Hint: use an attribute selector to find
+              those articles that match the value, and then fade them in.
+          */
+    } else {
+      $('#articles article').show();
+      $('.template').hide();
+      /* Otherwise, we should:
+          1. Show all the articles except the template */
+    }
     $('#category-filter').val('');
   });
 };
 
 articleView.handleCategoryFilter = function() {
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('#articles article').hide();
+      $('#articles article[data-category="' + $(this).val() + '"]').fadeIn(400);
+    } else {
+      $('#articles article').show();
+      $('.template').hide();
+    }
+    $('#author-filter').val('');
+  });
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+
 };
 
 articleView.handleMainNav = function () {
@@ -63,3 +78,6 @@ articleView.setTeasers = function() {
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
