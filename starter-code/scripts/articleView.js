@@ -25,30 +25,25 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
 
   var authorName, optionTag;
-  authorName = $(this).find('address a').text();
+  // authorName = $(this).find('address a').text();
 
-  optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
+  // optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
 
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
-      /* TODO: If the slect box changes to an option that has a value, we should:
+      /* TODO: DONE!  If the slect box changes to an option that has a value, we should:
           1. Hide all of the articles
           2. Fade in only the articles that match based on on the author
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
-        $('article').hide(); //hides all articles
+      $('article').hide(); //hides all articles
+      $('article[data-author="' + $(this).val() + '"]').fadeIn(2000); //fades in selected author's articles
 
-        // $('article').attr('optionTag', authorName).each(function() {
-        //   fadeIn(2000);
-        // });
-        $('article').attr('optionTag', authorName).fadeIn(2000);
-        // $('data-author')
+    } else {
 
-        console.log('Hello');
-
-  } else {
-    /* Otherwise, we should:
+      $('article').not('.template').show();
+        /* DONE!  Otherwise, we should:
         1. Show all the articles except the template */
   }
     $('#category-filter').val('');
@@ -88,6 +83,6 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
-articleView.handleCategoryFilter();
-articleView.handleMainNav();
-articleView.setTeasers();
+// articleView.handleCategoryFilter();
+// articleView.handleMainNav();
+// articleView.setTeasers();
