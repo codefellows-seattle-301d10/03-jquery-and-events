@@ -70,12 +70,20 @@ articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
-    1. Prevent the defaul actionof a link.
+    1. Prevent the default action of a link.
     2. Reveal everything in that particular article now.
     3. Hide that read-on link!
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+  // With help from Munir, Sam, and Frazier
+$('article').on('click', '.read-on', function() {
+  event.preventDefault();
+  console.log('THIS.PARENT', $(this).parent());
+  console.log($('article'));
+  $(this).parent().find('.article-body *:nth-of-type(n+2)').show();
+  $(this).hide();
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -84,3 +92,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();
