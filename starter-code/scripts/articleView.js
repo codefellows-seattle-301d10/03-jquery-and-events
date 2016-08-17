@@ -60,6 +60,8 @@ articleView.handleMainNav = function () {
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    $('.tab-content').hide();
+    $('section[id="' + $(this).attr('data-content') + '"]').fadeIn(400);
   });
   $('.main-nav .tab:first').click();
 };
@@ -74,9 +76,21 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+  event.preventDefault();
+
+  // if('*nth-of-type(n+2)'){
+    $('.read-on').on('click', function(){
+      $(this).show();
+      //change the html to Show Less
+      //change the class to .show-less
+    }
+    $('.article-body *:nth-of-type(n+2)').show();
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
