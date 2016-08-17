@@ -11,6 +11,7 @@ articleView.populateFilters = function() {
     optionTag = '<option value="' + category + '">' + category + '</option>';
     if ($('#category-filter option[value="' + category + '"]').length === 0) {
       $('#category-filter').append(optionTag);
+
     }
   });
 };
@@ -21,8 +22,8 @@ articleView.handleAuthorFilter = function() {
     $article.hide();
     if ($(this).val()) {
       // $article.find($(this).val());
-      $('#articles').find('article[data-author = $(this.val())]').fadeIn('slow');
-      /* TODO: DONE-ish If the select box changes to an option that has a value, we should:
+      $('#articles').find('article[data-author="' + $(this).val() + '"]').fadeIn('slow');
+      /* TODO: DONE If the select box changes to an option that has a value, we should:
           1. Hide all of the articles
           2. Fade in only the articles that match based on on the author
             that was aselected. Hint: use an attribute selector to find
@@ -43,7 +44,7 @@ articleView.handleCategoryFilter = function() {
     $article.hide();
     if ($(this).val()) {
       // $article.find($(this).val());
-      $('#articles').find('article[data-category = $(this.val())]').fadeIn('slow');
+      $('#articles').find('article[data-category="' + $(this).val() + '"]').fadeIn('slow');
 
     } else {
 
@@ -58,12 +59,19 @@ articleView.handleCategoryFilter = function() {
 
 articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
+    var $clickedOn = $(this).attr('data-content');
+    $('.tab-content').hide();
+    $('#'+ $clickedOn).fadeIn('slow');
+
+
     /* TODO:
+      DONE
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
   });
+
   $('.main-nav .tab:first').click();
 };
 
@@ -78,5 +86,13 @@ articleView.setTeasers = function() {
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
 };
+
+
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
+
 
 // TODO: Invoke all of the above functions (I mean, methods!):
