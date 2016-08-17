@@ -62,7 +62,7 @@ articleView.handleCategoryFilter = function() {
 
 articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
-    /* TODO:
+    /* TODO: DONE!
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
@@ -82,18 +82,28 @@ articleView.handleMainNav = function () {
 };
 
 articleView.setTeasers = function() {
+
   $('.article-body *:nth-of-type(n+2)').hide();
+
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
     1. Prevent the defaul actionof a link.
     2. Reveal everything in that particular article now.
     3. Hide that read-on link!
-
-    // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+      // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+
+  // event.preventDefault();
+
+
+  $('article').on('click', 'article[data-category="' + $(this).val() + '"]', function() {
+    $('.article-body *:nth-of-type(n+2)').show();
+  });
+
+
 };
 
-// TODO: Invoke all of the above functions (I mean, methods!):
+// TODO: DONE!  Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
