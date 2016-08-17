@@ -55,7 +55,7 @@ articleView.handleCategoryFilter = function() {
 
 articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
-    /* TODO:
+    /* TODO:DONE;
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
@@ -68,25 +68,33 @@ articleView.handleMainNav = function () {
 
 articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
-  /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
-    When a .read-on link is clicked, we can:
-    1. Prevent the defaul actionof a link.
-    2. Reveal everything in that particular article now.
-    3. Hide that read-on link!
-
-    // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
-  */
-  event.preventDefault();
-
-  // if('*nth-of-type(n+2)'){
-    $('.read-on').on('click', function(){
-      $(this).show();
-      //change the html to Show Less
-      //change the class to .show-less
+  $('.read-on').on('click', function(){
+    event.preventDefault();
+    //if ID = concatenation...
+    if($(this).hasClass('read-on')){
+      console.log($(this));
+      console.log(event.target.nodeName);
+      $(this).parent().find('*').show();
+      $(this).addClass('show-less');
+      $(this).removeClass('read-on').empty().html('Show Less');
+    } else {
+      $('.article-body *:nth-of-type(n+2)').hide();
+      $(this).addClass('read-on');
+      $(this).removeClass('show-less').empty().html('Read On');
     }
-    $('.article-body *:nth-of-type(n+2)').show();
+
   });
 };
+
+
+/* TODO: Add a delegated event handler to reveal the remaining paragraphs.
+When a .read-on link is clicked, we can:
+1. Prevent the defaul actionof a link.
+2. Reveal everything in that particular article now.
+3. Hide that read-on link!
+
+// STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+*/
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
