@@ -83,7 +83,9 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
-  // $('.read-on').on('click').preventDefaultMethod();
+  $('.read-on').on('click', preventDefaultMethod());
+
+
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -92,3 +94,4 @@ articleView.populateFilters();
 articleView.handleMainNav();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.setTeasers();
