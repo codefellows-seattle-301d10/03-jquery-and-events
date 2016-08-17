@@ -1,6 +1,5 @@
-// IN-CLASS TODO: Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
+// IN-CLASS TODO: DONE. Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
-
 
 articleView.populateFilters = function() {
   $('article').not('.template').each(function() {
@@ -12,46 +11,91 @@ articleView.populateFilters = function() {
     optionTag = '<option value="' + category + '">' + category + '</option>';
     if ($('#category-filter option[value="' + category + '"]').length === 0) {
       $('#category-filter').append(optionTag);
+
     }
   });
 };
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
-  if ($(this).val()) {
-      /* TODO: If the slect box changes to an option that has a value, we should:
+    var $article = $('.publishedArticle');
+    $article.hide();
+    if ($(this).val()) {
+      // $article.find($(this).val());
+      $('#articles').find('article[data-author="' + $(this).val() + '"]').fadeIn('slow');
+      /* TODO: DONE If the select box changes to an option that has a value, we should:
           1. Hide all of the articles
           2. Fade in only the articles that match based on on the author
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
-  } else {
+    } else {
     /* Otherwise, we should:
         1. Show all the articles except the template */
-  }
+      $article.show();
+    }
     $('#category-filter').val('');
   });
 };
 
 articleView.handleCategoryFilter = function() {
-  /* TODO: Just like we do for #author-filter above, we should also handle
+  $('#category-filter').on('change', function() {
+    var $article = $('.publishedArticle');
+    $article.hide();
+    if ($(this).val()) {
+      // $article.find($(this).val());
+      $('#articles').find('article[data-category="' + $(this).val() + '"]').fadeIn('slow');
+
+    } else {
+
+      $article.show();
+    }
+    $('#author-filter').val('');
+  });
+  /* TODO: DONE Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
 };
 
 articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
+    var $clickedOn = $(this).attr('data-content');
+    $('.tab-content').hide();
+    $('#'+ $clickedOn).fadeIn('slow');
+
+
     /* TODO:
+      DONE
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
   });
+
   $('.main-nav .tab:first').click();
 };
 
 articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
+  $('#articles').on('click', '.read-on', function(event){
+    console.log(this);
+    event.preventDefault();
+    console.log($(this).parent());
+    $(this).parent().find('*').show();
+    $(this).html('Show less &larrhk;').removeClass('read-on').addClass('show-less');
+
+
+  });
+
+  $('#articles').on('click', '.show-less', function(event){
+    console.log(this);
+    event.preventDefault();
+    console.log($(this).parent());
+    $('.article-body *:nth-of-type(n+2)').hide();
+    $(this).html('Read on &#x21aa').removeClass('show-less').addClass('read-on');
+
+
+  });
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
     1. Prevent the defaul actionof a link.
@@ -61,5 +105,13 @@ articleView.setTeasers = function() {
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
 };
+
+
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
+
 
 // TODO: Invoke all of the above functions (I mean, methods!):
