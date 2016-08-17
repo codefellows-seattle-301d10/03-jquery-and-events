@@ -21,7 +21,7 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
-      // TODO: If the select box changes to an option that has a value, we should:
+      // TODO: DONE If the select box changes to an option that has a value, we should:
         //  1. Hide all of the articles
         //  2. Fade in only the articles that match based on the author.
         //    that was selected. Hint. Use an attribute selector to find those articles
@@ -32,8 +32,10 @@ articleView.handleAuthorFilter = function() {
 
     } else {
         // Otherwise, we should:
-      $('article .template').hide();
       $('article').show();
+      $('article.template').hide();
+
+
 
     }
 
@@ -41,7 +43,7 @@ articleView.handleAuthorFilter = function() {
 };
 
 articleView.handleCategoryFilter = function() {
-  /* TODO: Just like we do for #author-filter above, we should also handle
+  /* TODO: DONE Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
   $('#category-filter').on('change', function() {
@@ -49,7 +51,8 @@ articleView.handleCategoryFilter = function() {
       $('article').hide();
       $('article[data-category ="' + $(this).val() +'" ]').fadeIn();
     } else{
-
+      $('article').show();
+      $('article.template').hide();
     }
   });
 
@@ -60,7 +63,8 @@ articleView.handleMainNav = function () {
     // TODO: Hide all of the .tab-content sections
     //         fade in the single .tab-content section that is associated
     //        with the .tab element's data-content attribute.
-
+    $('.tab-content').hide();
+    $('#' + $(this).data('content')).fadeIn();
   });
   $('.main-nav .tab:first').click();
 };
@@ -87,3 +91,5 @@ articleView.setTeasers = function() {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
