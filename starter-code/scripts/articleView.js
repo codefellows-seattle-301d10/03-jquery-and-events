@@ -24,11 +24,6 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
 
-  var authorName, optionTag;
-  // authorName = $(this).find('address a').text();
-
-  // optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
-
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
       /* TODO: DONE!  If the slect box changes to an option that has a value, we should:
@@ -45,16 +40,24 @@ articleView.handleAuthorFilter = function() {
       $('article').not('.template').show();
         /* DONE!  Otherwise, we should:
         1. Show all the articles except the template */
-  }
+    }
     $('#category-filter').val('');
   });
 };
 
 
 articleView.handleCategoryFilter = function() {
-  /* TODO: Just like we do for #author-filter above, we should also handle
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+  /* TODO: DONE! Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+
+      $('article').hide(); //hides all articles
+      $('article[data-category="' + $(this).val() + '"]').fadeIn(2000); //fades in selected categorie's authors
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -64,6 +67,16 @@ articleView.handleMainNav = function () {
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    $('.tab-content').hide();
+
+    $('.tab[data-content="articles"]').click(function() {
+      $('#articles').fadeIn('fast');
+    });
+
+    $('.tab[data-content="about"]').click(function() {
+      $('#about').fadeIn('fast');
+    });
+
   });
   $('.main-nav .tab:first').click();
 };
@@ -83,6 +96,6 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
-// articleView.handleCategoryFilter();
-// articleView.handleMainNav();
-// articleView.setTeasers();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
