@@ -41,6 +41,15 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('article').hide();
+      $('#articles').find('[data-category="' + this.value + '"]').fadeIn();
+    } else {
+      $('article').not('.template').show();
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -50,6 +59,9 @@ articleView.handleMainNav = function () {
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    $('.tab-content').hide();
+    var $attrvalue = $(this).attr('data-content');
+    $('main').find('#' + $attrvalue).fadeIn();
   });
   $('.main-nav .tab:first').click();
 };
@@ -70,3 +82,5 @@ articleView.setTeasers = function() {
 
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
