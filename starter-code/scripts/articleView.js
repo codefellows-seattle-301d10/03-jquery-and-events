@@ -77,6 +77,25 @@ articleView.handleMainNav = function () {
 
 articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
+  $('#articles').on('click', '.read-on', function(event){
+    console.log(this);
+    event.preventDefault();
+    console.log($(this).parent());
+    $(this).parent().find('*').show();
+    $(this).html('Show less &larrhk;').removeClass('read-on').addClass('show-less');
+
+
+  });
+
+  $('#articles').on('click', '.show-less', function(event){
+    console.log(this);
+    event.preventDefault();
+    console.log($(this).parent());
+    $('.article-body *:nth-of-type(n+2)').hide();
+    $(this).html('Read on &#x21aa').removeClass('show-less').addClass('read-on');
+
+
+  });
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
     1. Prevent the defaul actionof a link.

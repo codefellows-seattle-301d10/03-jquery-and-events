@@ -12,6 +12,7 @@
   float: right;
 }
 
+
 .main-nav {
   padding: 0.1em;
 }
@@ -45,6 +46,15 @@
 #filters {
   padding: 0;
   list-style: none;
+}
+
+
+.read-on{
+  color: #69D2E7 !important;
+}
+
+.show-less{
+  color: #FA6900 !important;
 }
 
 .template {
