@@ -83,7 +83,7 @@ articleView.setTeasers = function() {
     console.log('THIS.PARENT', $(this).parent());
     console.log($('article'));
     $(this).parent().find('.article-body *:nth-of-type(n+2)').show();
-    $(this).html('Show less &rarr;').removeClass('read-on').addClass('show-less'); //Changing the html in a tag to "show less", remove the read-on class and add a new class so I can target it in the next event handler
+    $(this).html('Show less...').removeClass('read-on').addClass('show-less'); //Changing the html in a tag to "show less", remove the read-on class and add a new class so I can target it in the next event handler
   });
 
  //basically doing the opposite thing as above but same principle:
@@ -91,7 +91,7 @@ articleView.setTeasers = function() {
     event.preventDefault();
     console.log('THIS.PARENT', $(this).parent());
     $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
-    $(this).html('Read on $rarr;').removeClass('show-less').addClass('read-on');
+    $(this).html('Read on...').removeClass('show-less').addClass('read-on');
   });
 };
 
