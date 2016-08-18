@@ -45,6 +45,7 @@ articleView.handleCategoryFilter = function() {
     if ($(this).val()) {
       $('article').hide();
       $('#articles').find('[data-category="' + this.value + '"]').fadeIn();
+
     } else {
       $('article').not('.template').show();
     }
@@ -60,8 +61,8 @@ articleView.handleMainNav = function () {
         associated with the .tab element's data-content attribute.
     */
     $('.tab-content').hide();
-    var $attrvalue = $(this).attr('data-content');
-    $('main').find('#' + $attrvalue).fadeIn();
+    var $id = $(this).attr('data-content');
+    $('main').find('#' + $id).fadeIn();
   });
   $('.main-nav .tab:first').click();
 };
@@ -70,19 +71,27 @@ articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
-    1. Prevent the default action of a link.
+    1. Prevent the defaul actionof a link.
     2. Reveal everything in that particular article now.
     3. Hide that read-on link!
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
-  // With help from Munir, Sam, and Frazier
-$('article').on('click', '.read-on', function() {
-  event.preventDefault();
-  console.log('THIS.PARENT', $(this).parent());
-  console.log($('article'));
-  $(this).parent().find('.article-body *:nth-of-type(n+2)').show();
-  $(this).hide();
+  // With help from Munir, Sam and Frazier
+  $('article').on('click', '.read-on', function() {
+    event.preventDefault();
+    console.log('THIS.PARENT', $(this).parent());
+    console.log($('article'));
+    $(this).parent().find('.article-body *:nth-of-type(n+2)').show();
+    $(this).html('Show less &rarr;').removeClass('read-on').addClass('show-less'); //Changing the html in a tag to "show less", remove the read-on class and add a new class so I can target it in the next event handler
+  });
+
+ //basically doing the opposite thing as above but same principle:
+  $('article').on('click', '.show-less', function() {
+    event.preventDefault();
+    console.log('THIS.PARENT', $(this).parent());
+    $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+    $(this).html('Read on $rarr;').removeClass('show-less').addClass('read-on');
   });
 };
 
